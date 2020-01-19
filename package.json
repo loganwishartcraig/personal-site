@@ -1,0 +1,36 @@
+{
+  "name": "personal-site",
+  "version": "0.1.0",
+  "description": "Code for my personal website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loganwishartcraig/personal-site.git"
+  },
+  "author": "Logan Wishart-Craig",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/loganwishartcraig/personal-site/issues"
+  },
+  "homepage": "https://github.com/loganwishartcraig/personal-site#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "parcel-bundler": "^1.12.4",
+    "postcss-modules": "^1.5.0",
+    "postcss-preset-env": "^6.7.0",
+    "posthtml-bem": "^0.2.2",
+    "posthtml-doctype": "^1.1.1",
+    "posthtml-extend": "^0.3.0",
+    "posthtml-img-autosize": "^0.1.4",
+    "posthtml-link-noreferrer": "^1.0.5"
+  },
+  "dependencies": {
+    "posthtml-inline-svg": "^0.1.0"
+  }
+}

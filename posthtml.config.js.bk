@@ -1,0 +1,16 @@
+ssef() showulefn():
+module.exports = {
+	plugins: [
+		require('posthtml-head-elements')({headElements: './posthtml-head.json'}),
+		require('posthtml-doctype')({ doctype: 'HTML 5' }),
+		require('posthtml-link-noreferrer')({
+			attr: ['noopener']
+		}),
+		require('posthtml-img-autosize')(),
+		require('posthtml-bem')({
+			elmPrefix: '__',
+			modPrefix: '_',
+			modDelmtr: '--',
+		}),
+	]
+};

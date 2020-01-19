@@ -1,0 +1,19 @@
+/* body {
+    animation: BackgroundAnimation 30s ease infinite;
+}
+
+ @-webkit-keyframes BackgroundAnimation {
+    0%{background-position:0% 77%}
+    50%{background-position:100% 24%}
+    100%{background-position:0% 77%}
+}
+@-moz-keyframes BackgroundAnimation {
+    0%{background-position:0% 77%}
+    50%{background-position:100% 24%}
+    100%{background-position:0% 77%}
+}
+@keyframes BackgroundAnimation {
+    0%{background-position:0% 77%}
+    50%{background-position:100% 24%}
+    100%{background-position:0% 77%}
+} */
