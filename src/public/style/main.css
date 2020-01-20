@@ -54,6 +54,6 @@
 .window {
     position: relative;
     padding: 1rem;
-    border: 1px solid #333333;
+    border: 1px solid var(--window-border-color);
     border-radius: 3px;
 }

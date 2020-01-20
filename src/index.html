@@ -11,8 +11,18 @@
         :root {
             --window-bg-color: rgb(34, 34, 34);
             --window-text-color: #ddd;
+            --window-border-color: #111;
             --link-hover-color: #ff4ee3;
         }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --window-text-color: rgb(34, 34, 34);
+                --window-bg-color: #ddd;
+                --window-border-color: #eee;
+            }
+        }
+
 
         html {
             box-sizing: border-box;
