@@ -1,19 +1,59 @@
-/* body {
-    animation: BackgroundAnimation 30s ease infinite;
+.about__content {
+    flex: 1;
+    margin-bottom: 1.5rem;
 }
 
- @-webkit-keyframes BackgroundAnimation {
-    0%{background-position:0% 77%}
-    50%{background-position:100% 24%}
-    100%{background-position:0% 77%}
+.about__links {
+    text-align: right;
 }
-@-moz-keyframes BackgroundAnimation {
-    0%{background-position:0% 77%}
-    50%{background-position:100% 24%}
-    100%{background-position:0% 77%}
+
+.about__email {
+    margin-right: 1.25rem;
 }
-@keyframes BackgroundAnimation {
-    0%{background-position:0% 77%}
-    50%{background-position:100% 24%}
-    100%{background-position:0% 77%}
-} */
+
+.contact__nav {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.contact__header {
+    margin-top: 0;
+}
+.contact__item {
+    margin-right: 0.5rem;
+}
+.contact__item:last-child {
+    margin-right: 0rem;
+}
+.link--icon>* {
+    vertical-align: middle;
+}
+
+.link__icon {
+    height: 1.65rem;
+    fill: inherit;
+}
+
+.link--primary {
+    color: var(--window-text-color);
+    fill: var(--window-text-color);
+    transition: fill ease-in-out 100ms, color ease-in-out 100ms;
+}
+
+.link--primary:hover {
+    color: var(--link-hover-color);
+    fill: var(--link-hover-color);
+}
+
+
+.floating {
+    box-shadow: 2px 2px 6px -3px rgba(0, 0, 0, .75);
+}
+
+.window {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid #333333;
+    border-radius: 3px;
+}

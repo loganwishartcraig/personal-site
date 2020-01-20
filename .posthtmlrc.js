@@ -8,6 +8,9 @@ module.exports = {
 		},
 		"posthtml-inline-svg": {
 			"cwd": process.cwd() + "/src"
+		},
+		"posthtml-link-noreferrer": {
+			"attr": ['noopener', 'noreferrer']
 		}
 	}
 };

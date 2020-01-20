@@ -21,7 +21,7 @@
         body {
             margin: 0;
             font-family: 'Fira Code', monospace;
-            background: linear-gradient(289deg, #4ecf61, #4e98cf, #a07fd3);
+            background: linear-gradient(289deg, #43ba64, #4e98cf, #a07fd3);
         }
 
         html * {
@@ -40,14 +40,17 @@
 
         h2 {
             font-size: 1.25rem;
+            margin: 0.75rem 0;
         }
 
         p {
             font-size: 0.9rem;
             line-height: 1.25rem;
+            margin: 1rem 0;
         }
 
         ul {
+            margin: 0;
             padding: 0;
             list-style: none;
         }
@@ -71,81 +74,111 @@
         }
 
         .main {
-            display: grid;
-            grid-template-columns: 250px auto;
-            grid-template-rows: auto auto;
-            gap: 6px;
-            align-items: center;
-            width: 95%;
-            max-width: 800px;
+            margin: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .name {
+            margin: 0 0 5px 0;
+            width: 100%
         }
 
         .portrait {
-            grid-column: 1/2;
-        }
-
-        .portrait__img {
             display: block;
             max-width: 100%;
+            width: 250px;
             border: 2px solid var(--window-bg-color);
             border-radius: 3px;
         }
 
-        .contact {
-            grid-column: 1/2;
-            grid-row: 2/-1;
+        .about {
+            display: flex;
+            flex-direction: column;
+            margin-left: 5px;
+            width: calc(100% - 255px);
+            height: 100%;
         }
 
-        .about {
-            grid-column: 2/-1;
-            grid-row: 1/-1;
-            height: 100%;
+        .list--inline>li {
+            display: inline-block;
         }
 
         .window {
             background-color: var(--window-bg-color);
-            position: relative;
-            padding: 1rem;
-            border: 1px solid #333333;
-            border-radius: 3px;
         }
 
-        .floating {
-            box-shadow: 2px 2px 6px -3px rgba(0, 0, 0, .75);
+        .contact {
+            width: 100%;
+            margin-top: 5px;
         }
 
-        .contact__item {
-            margin-bottom: 0.25rem;
+        .contact__container {
+            text-align: center;
         }
 
-        .contact__item:hover .contact__icon {
-            fill: var(--link-hover-color);
+        @supports(display: grid) {
+            .main {
+                display: grid;
+                grid-template-columns: 250px auto;
+                grid-template-rows: auto auto min-content;
+                grid-template-areas:
+                    "name name"
+                    "portrait about"
+                    "contact about";
+                gap: 6px;
+                align-items: stretch;
+            }
+
+            .name {
+                grid-area: name;
+                width: initial;
+                margin: 0;
+            }
+
+            .portrait {
+                grid-area: portrait;
+                width: initial;
+            }
+
+            .contact {
+                grid-area: contact;
+                margin-top: 0;
+            }
+
+            .about {
+                grid-area: about;
+                width: initial;
+                margin-left: 0;
+            }
         }
 
-        .contact__item:hover .contact__link {
-            color: var(--link-hover-color);
+        @media screen and (max-width: 650px),
+        (max-height: 550px) {
+            .main {
+                display: block;
+            }
+
+            .portrait {
+                display: none;
+            }
+
+            .name {
+                margin-bottom: 5px;
+            }
+
+            .about {
+                margin-bottom: 5px;
+            }
+
         }
 
-        .contact__icon {
-            display: inline-block;
-            height: 1.65rem;
-            width: auto;
-            fill: var(--window-text-color);
-            vertical-align: middle;
-            transition: fill ease-in-out 100ms;
-        }
-
-        .contact__label {
-            vertical-align: middle;
-        }
-
-        .contact__link {
-            color: var(--window-text-color);
-            transition: color ease-in-out 100ms;
-        }
-
-        .contact__link:hover {
-            color: var(--link-hover-color);
+        @media screen and (max-width: 600px) {
+            p {
+                line-height: 1.5rem;
+            }
         }
     </style>
 
@@ -156,91 +189,78 @@
     <div class="content-wrapper">
         <main class="main">
 
+            <h1 class="name window floating">Logan Wishart-Craig</h1>
 
-            <div class="portrait floating">
-                <img class="portrait__img" src="public/img/40613855_10214376685585825_6884769735821492224_o.jpg"
-                    alt="A portrait photo of me, Logan!">
-            </div>
+            <img class="portrait floating" src="public/img/40613855_10214376685585825_6884769735821492224_o.jpg"
+                alt="A portrait photo of me, Logan!">
 
+
+            <section class="about window floating">
+
+                <h2>Full-Stack Web Developer</h2>
+
+                <div class="about__content">
+                    <p>
+                        Hi! I'm a full-stack web developer, specializing in TypeScript, currently operating out of Los
+                        Angeles, CA.
+                        I'm huge on shipping well crafted code, being part of awesome teams, and constantly learning
+                        something
+                        new. For the past few years, I've been building projects at AAA Flag &amp; Banner.
+                    </p>
+
+                    <p>
+
+                        I have hands-on experience with modern JavaScript (ES6 &amp; beyond), TypeScript, HTML, CSS,
+                        React,
+                        Aurelia, SASS/SCSS, Progressive Web Apps, modern build pipelines (Webpack/Parcel/Gulp), Node,
+                        Express,
+                        Postgres, MongoDB, Azure, UI/UX design, and more.
+                    </p>
+                </div>
+
+                <ul class="about__links list--inline">
+                    <li>
+                        <a href="mailto:logan@wisharts.dev" class="link--primary link--icon about__email"
+                            target="_blank">
+                            <icon src="public/img/ios-mail.svg" class="link__icon" alt="Email logo"></icon>
+                            logan@wisharts.dev
+                        </a>
+                    </li>
+                    <li>
+                        <a href="public/doc/Logan_Wishart-Craig_Resume_2020-full-color.pdf"
+                            class="link--primary link--icon" target="_blank">
+                            <icon src="public/img/ios-person.svg" class="link__icon" alt="Resume icon"></icon>
+                            Resume
+                        </a>
+                    </li>
+                </ul>
+            </section>
             <section class="contact window floating">
-                <h2>Contact</h2>
-                <nav>
-                    <ul class="contact">
+                <nav class="contact__nav">
+                    <ul class="contact__container list--inline">
                         <li class="contact__item">
-                            <a href="https://twitter.com/_ogan" class="contact__link" target="_blank"
+                            <a href="https://twitter.com/_ogan" class="link--primary link--icon" target="_blank"
                                 title="Visit my Twitter!">
-                                <icon src="public/img/logo-twitter.svg" class="contact__icon" alt="Twitter logo"></icon>
-                                <span class="contact__label">Twitter</span>
+                                <icon src="public/img/logo-twitter.svg" class="link__icon" alt="Twitter logo"></icon>
                             </a>
                         </li>
 
                         <li class="contact__item">
-                            <a href="https://github.com/loganwishartcraig" class="contact__link" target="_blank"
-                                title="Check out my GitHub!">
-                                <icon src="public/img/logo-github.svg" class="contact__icon" alt="GitHub logo"></icon>
-                                <span class="contact__label">GitHub</span>
-                            </a>
+                            <a href="https://github.com/loganwishartcraig" class="link--primary link--icon"
+                                target="_blank" title="Check out my GitHub!">
+                                <icon src="public/img/logo-github.svg" class="link__icon" alt="GitHub logo"></icon>
                         </li>
 
                         <li class="contact__item">
-                            <a href="https://linkedin.com/loganwishartcraig" class="contact__link" target="_blank"
-                                title="Connect on LinkedIn!">
-                                <icon src="public/img/logo-linkedin.svg" class="contact__icon" alt="LinkedIn logo">
+                            <a href="https://linkedin.com/loganwishartcraig" class="link--primary link--icon"
+                                target="_blank" title="Connect on LinkedIn!">
+                                <icon src="public/img/logo-linkedin.svg" class="link__icon" alt="LinkedIn logo">
                                 </icon>
-                                <span class="contact__label">LinkedIn</span>
-                            </a>
-                        </li>
-
-                        <li class="contact__item">
-                            <a href="mailto:logan@wisharts.dev" class="contact__link" target="_blank"
-                                title="Send me an email!">
-                                <icon src="public/img/ios-mail.svg" class="contact__icon" alt="Email logo"></icon>
-                                <span class="contact__label">logan@wisharts.dev</span>
-                            </a>
-                        </li>
-
-                        <li class="contact__item">
-                            <a href="public/doc/Logan_Wishart-Craig_Resume_2020-full-color.pdf" class="contact__link"
-                                target="_blank" title="View my resume!">
-                                <icon src="public/img/ios-document.svg" class="contact__icon"
-                                    alt="Full color resume logo"></icon>
-                                <span class="contact__label">Resume</span>
-                            </a>
-                        </li>
-
-                        <li class="contact__item">
-                            <a href="public/doc/Logan_Wishart-Craig_Resume_2020-print-friendly.pdf"
-                                class="contact__link" title="View a print friendly version of my resume!">
-                                <icon src="public/img/ios-print.svg" class="contact__icon"
-                                    alt="Print-friendly resume logo"></icon>
-                                <span class="contact__label">Resume (Printable)</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
-
             </section>
-
-            <section class="about window floating">
-
-                <h1>Logan Wishart-Craig</h1>
-                <h2>Full-Stack Web Developer</h2>
-                <p>
-                    Hi! I'm a full-stack web developer, specializing in TypeScript, currently operating out of Los
-                    Angeles, CA.
-                    I'm huge on shipping well crafted code, being part of awesome teams, and constantly learning
-                    something
-                    new. For the past few years, I've been building projects at AAA Flag &amp; Banner.
-                </p>
-
-                <p>
-                    I have direct experience with modern Javascript (ES6 &amp; beyond), TypeScript, HTML, CSS, React,
-                    Aurelia, SASS/SCSS, Progressive Web Apps, modern build pipelines (Webpack/Parcel/Gulp), Node,
-                    Express,
-                    Postgres, MongoDB,
-                </p>
-            </section>
-
         </main>
     </div>
 </body>
