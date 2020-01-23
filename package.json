@@ -28,9 +28,11 @@
     "posthtml-doctype": "^1.1.1",
     "posthtml-extend": "^0.3.0",
     "posthtml-img-autosize": "^0.1.4",
-    "posthtml-link-noreferrer": "^1.0.5"
+    "posthtml-link-noreferrer": "^1.0.5",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "posthtml-inline-svg": "^0.1.0"
+    "posthtml-inline-svg": "^0.1.0",
+    "three": "^0.112.1"
   }
 }
