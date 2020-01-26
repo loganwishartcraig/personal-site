@@ -10,6 +10,7 @@
 
     <style>
         :root {
+            --bg-color: #000;
             --window-bg-color: rgb(34, 34, 34);
             --window-text-color: #ddd;
             --window-border-color: #111;
@@ -18,6 +19,7 @@
 
         @media (prefers-color-scheme: light) {
             :root {
+                --bg-color: #fff;
                 --window-text-color: rgb(34, 34, 34);
                 --window-bg-color: #ddd;
                 --window-border-color: #eee;
@@ -26,6 +28,7 @@
 
         @media (prefers-color-scheme: dark) {
             :root {
+                --bg-color: #000;
                 --window-bg-color: rgb(34, 34, 34);
                 --window-text-color: #ddd;
                 --window-border-color: #111;
@@ -41,7 +44,7 @@
             position: relative;
             margin: 0;
             font-family: 'Fira Code', monospace;
-            background: var(--window-bg-color);
+            background: var(--bg-color);
         }
 
         html * {
@@ -125,6 +128,11 @@
             border-radius: 3px;
         }
 
+        .about {
+            width: calc(100% - 255px);
+            margin-left: 5px;
+        }
+
         .about__container {
             height: 100%;
             display: flex;
@@ -183,6 +191,8 @@
 
             .about {
                 grid-area: about;
+                width: initial;
+                margin-left: 0;
             }
         }
 
