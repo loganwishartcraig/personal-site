@@ -199,18 +199,16 @@
             }
 
             .main {
-                grid-template-rows: 50vh 50vh auto min-content;
+                grid-template-rows: 60vh 40vh 100vh;
                 grid-template-columns: 100%;
                 grid-template-areas:
                     "portrait"
                     "name"
-                    "about"
-                    "contact";
-                margin-bottom: 30vh;
+                    "about";
             }
 
             .portrait {
-                height: 30vh;
+                height: 25vh;
                 border-radius: 10px;
                 align-self: flex-end;
                 justify-self: center;
@@ -218,6 +216,25 @@
 
             .name {
                 align-self: flex-start;
+            }
+
+            .about {
+                align-self: flex-end;
+            }
+
+            .contact {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                width: auto;
+            }
+
+            .contact .link__icon {
+                height: 1.25rem;
+            }
+
+            .contact__item {
+                margin-right: 0.75rem;
             }
 
         }
@@ -244,46 +261,50 @@
                 alt="A portrait photo of me, Logan!">
 
 
-            <section class="about window floating">
+            <div class="about">
+                <section class="about__container window floating">
 
-                <h2>Full-Stack Web Developer</h2>
+                    <h2>Full-Stack Web Developer</h2>
 
-                <div class="about__content">
-                    <p>
-                        Hi! I'm a full-stack web developer, specializing in TypeScript, currently operating out of Los
-                        Angeles, CA.
-                        I'm huge on shipping well crafted code, being part of awesome teams, and constantly learning
-                        something
-                        new. For the past few years, I've been building projects at AAA Flag &amp; Banner.
-                    </p>
+                    <div class="about__content">
+                        <p>
+                            Hi! I'm a full-stack web developer, specializing in TypeScript, currently operating out of
+                            Los
+                            Angeles, CA.
+                            I'm huge on shipping well crafted code, being part of awesome teams, and constantly learning
+                            something
+                            new. For the past few years, I've been building projects at AAA Flag &amp; Banner.
+                        </p>
 
-                    <p>
+                        <p>
 
-                        I have hands-on experience with modern JavaScript (ES6 &amp; beyond), TypeScript, HTML, CSS,
-                        React,
-                        Aurelia, SASS/SCSS, Progressive Web Apps, modern build pipelines (Webpack/Parcel/Gulp), Node,
-                        Express,
-                        Postgres, MongoDB, Azure, UI/UX design, and more.
-                    </p>
-                </div>
+                            I have hands-on experience with modern JavaScript (ES6 &amp; beyond), TypeScript, HTML, CSS,
+                            React,
+                            Aurelia, SASS/SCSS, Progressive Web Apps, modern build pipelines (Webpack/Parcel/Gulp),
+                            Node,
+                            Express,
+                            Postgres, MongoDB, Azure, UI/UX design, and more.
+                        </p>
+                    </div>
 
-                <ul class="about__links list--inline">
-                    <li>
-                        <a href="mailto:logan@wisharts.dev" class="link--primary link--icon about__email"
-                            target="_blank">
-                            <icon src="public/img/ios-mail.svg" class="link__icon" alt="Email logo"></icon>
-                            logan@wisharts.dev
-                        </a>
-                    </li>
-                    <li>
-                        <a href="public/doc/Logan_Wishart-Craig_Resume_2020-full-color.pdf"
-                            class="link--primary link--icon" target="_blank">
-                            <icon src="public/img/ios-person.svg" class="link__icon" alt="Resume icon"></icon>
-                            Resume
-                        </a>
-                    </li>
-                </ul>
-            </section>
+                    <ul class="about__links list--inline">
+                        <li>
+                            <a href="mailto:logan@wisharts.dev" class="link--primary link--icon about__email"
+                                target="_blank">
+                                <icon src="public/img/ios-mail.svg" class="link__icon" alt="Email logo"></icon>
+                                logan@wisharts.dev
+                            </a>
+                        </li>
+                        <li>
+                            <a href="public/doc/Logan_Wishart-Craig_Resume_2020-full-color.pdf"
+                                class="link--primary link--icon" target="_blank">
+                                <icon src="public/img/ios-person.svg" class="link__icon" alt="Resume icon"></icon>
+                                Resume
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
             <section class="contact window floating">
                 <nav class="contact__nav">
                     <ul class="contact__container list--inline">
