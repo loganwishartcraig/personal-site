@@ -1,5 +1,18 @@
-import { BufferAttribute, BufferGeometry, Color, PerspectiveCamera, Points, Scene, ShaderMaterial, WebGLRenderer } from 'three';
+import { BufferAttribute, BufferGeometry, Color, PerspectiveCamera, Points, Scene, ShaderMaterial, WebGLRenderer, Colors } from 'three';
 import { TypedArrayUtils } from './TypedArrayUtils';
+
+
+const NUM_VERTICES = 250;
+const MAX_DISTANCE = Math.pow(120, 2);
+
+enum COLOR {
+    BG_LIGHT = 0xffffff,
+    BG_DARK = 0x000000,
+    VERTEX_LIGHT = 0x666666,
+    VERTEX_DARK = 0x666666,
+}
+
+let useDark = true;
 
 const scene = new Scene();
 const camera = new PerspectiveCamera(
@@ -13,7 +26,6 @@ const renderer = new WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 // renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0xFFFFFF, 1);
 
 renderer.domElement.id = 'three-canvas';
 document.body.appendChild(renderer.domElement);
@@ -27,8 +39,6 @@ const distanceFn = (a: BufferGeometry, b: BufferGeometry): number => {
 
 };
 
-const NUM_VERTICES = 250;
-const MAX_DISTANCE = Math.pow(120, 2);
 
 const positions = new Float32Array(NUM_VERTICES * 3);
 const alphas = new Float32Array(NUM_VERTICES);
@@ -52,7 +62,7 @@ for (let i = 0; i < NUM_VERTICES; i++) {
 }
 
 const uniforms = {
-    color: { value: new Color(0x666666) }
+    color: { value: new Color(useDark ? COLOR.VERTEX_DARK : COLOR.VERTEX_LIGHT) }
 };
 
 const particleMat = new ShaderMaterial({
@@ -65,24 +75,24 @@ const particleMat = new ShaderMaterial({
 const particles = new Points(particleGeom, particleMat);
 scene.add(particles);
 
-const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
+// const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
 
 function animate() {
     requestAnimationFrame(animate);
 
     for (let i = 0; i < NUM_VERTICES; i++) {
 
-        const positionsInRange = kdtree.nearest(
-            [
-                positions[i * 3 + 0],
-                positions[i * 3 + 1],
-                positions[i * 3 + 2],
-            ],
-            100,
-            MAX_DISTANCE
-        );
+        // const positionsInRange = kdtree.nearest(
+        //     [
+        //         positions[i * 3 + 0],
+        //         positions[i * 3 + 1],
+        //         positions[i * 3 + 2],
+        //     ],
+        //     100,
+        //     MAX_DISTANCE
+        // );
 
-        alphas[i] /= positionsInRange.length;
+        // alphas[i] /= positionsInRange.length;
 
         let ih = window.innerHeight,
             iw = window.innerWidth
@@ -103,5 +113,23 @@ function animate() {
 
     renderer.render(scene, camera);
 }
+
+if (typeof window.matchMedia === 'function') {
+    const mediaQuery = window.matchMedia('prefers-color-scheme: dark');
+    console.log('match media', mediaQuery);
+    useDark = mediaQuery.matches;
+    mediaQuery.addListener((ev) => {
+        useDark = ev.matches;
+        setColors(useDark);
+    })
+}
+
+function setColors(useDark: boolean) {
+    console.log('setting colors', useDark);
+    renderer.setClearColor(useDark ? COLOR.BG_DARK : COLOR.BG_LIGHT, 1);
+    uniforms.color.value = new Color(useDark ? COLOR.VERTEX_DARK : COLOR.VERTEX_LIGHT);
+}
+
+setColors(useDark);
 
 animate();
