@@ -1,0 +1,43 @@
+{
+  "meta": [
+    {
+      "charset": "utf-8"
+    },
+    {
+      "name": "language",
+      "content": "English"
+    },
+    {
+      "http-equiv": "X-UA-Compatible",
+      "content": "IE=edge"
+    },
+    {
+      "name": "viewport",
+      "content": "width=device-width, initial-scale=1"
+    },
+    {
+      "name": "author",
+      "content": "Logan Wishart-Craig"
+    },
+    {
+      "name": "description",
+      "content": "A front-end template that helps you build fast, modern mobile web apps."
+    },
+    {
+      "name": "copyright",
+      "content": "All rights reserved, Logan Wishart-Craig, 2020"
+    },
+    { "name":"title", "content":"Wisharts.dev — Connect with Logan Wishart-Craig"},
+    { "name":"description", "content":"Logan Wishart-Craig is a full-stack web developer based in Los Angeles, CA. Learn more about his experiencence, skills, and how to reach out."},
+    { "property":"og:type", "content":"website"},
+    { "property":"og:url", "content":"https://wisharts.dev/"},
+    { "property":"og:title", "content":"Wisharts.dev — Connect with Logan Wishart-Craig"},
+    { "property":"og:description", "content":"Logan Wishart-Craig is a full-stack web developer based in Los Angeles, CA. Learn more about his experience, skills, and how to reach out."},
+    { "property":"og:image", "content":"public/img/pexels-photo-373076.jpeg"},
+    { "property":"twitter:card", "content":"summary_large_image"},
+    { "property":"twitter:url", "content":"https://wisharts.dev/"},
+    { "property":"twitter:title", "content":"Wisharts.dev — Connect with Logan Wishart-Craig"},
+    { "property":"twitter:description", "content":"Logan Wishart-Craig is a full-stack web developer based in Los Angeles, CA. Learn more about his experience, skills, and how to reach out."},
+    { "property":"twitter:image", "content":"public/img/pexels-photo-373076.jpeg"}
+  ]
+}
