@@ -123,12 +123,10 @@
             border-radius: 3px;
         }
 
-        .about {
+        .about__container {
+            height: 100%;
             display: flex;
             flex-direction: column;
-            margin-left: 5px;
-            width: calc(100% - 255px);
-            height: 100%;
         }
 
         .list--inline>li {
@@ -183,8 +181,6 @@
 
             .about {
                 grid-area: about;
-                width: initial;
-                margin-left: 0;
             }
         }
 
@@ -199,7 +195,7 @@
             }
 
             .main {
-                grid-template-rows: 60vh 40vh 100vh;
+                grid-template-rows: 65vh 35vh 100vh;
                 grid-template-columns: 100%;
                 grid-template-areas:
                     "portrait"
@@ -208,7 +204,8 @@
             }
 
             .portrait {
-                height: 25vh;
+                height: 45vh;
+                max-height: 275px;
                 border-radius: 10px;
                 align-self: flex-end;
                 justify-self: center;
@@ -216,6 +213,7 @@
 
             .name {
                 align-self: flex-start;
+                text-align: center;
             }
 
             .about {

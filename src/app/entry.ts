@@ -12,7 +12,7 @@ const camera = new PerspectiveCamera(
 const renderer = new WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0xFFFFFF, 1);
 
 renderer.domElement.id = 'three-canvas';
