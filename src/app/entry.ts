@@ -65,24 +65,24 @@ const particleMat = new ShaderMaterial({
 const particles = new Points(particleGeom, particleMat);
 scene.add(particles);
 
-// const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
+const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
 
 function animate() {
     requestAnimationFrame(animate);
 
     for (let i = 0; i < NUM_VERTICES; i++) {
 
-        // const positionsInRange = kdtree.nearest(
-        //     [
-        //         positions[i * 3 + 0],
-        //         positions[i * 3 + 1],
-        //         positions[i * 3 + 2],
-        //     ],
-        //     100,
-        //     MAX_DISTANCE
-        // );
+        const positionsInRange = kdtree.nearest(
+            [
+                positions[i * 3 + 0],
+                positions[i * 3 + 1],
+                positions[i * 3 + 2],
+            ],
+            100,
+            MAX_DISTANCE
+        );
 
-        alphas[i] /= positions.length;
+        alphas[i] /= positionsInRange.length;
 
         let ih = window.innerHeight,
             iw = window.innerWidth
@@ -99,7 +99,7 @@ function animate() {
     }
 
     particleGeom.attributes.position.needsUpdate = true;
-    particleGeom.attributes.alpha.needsUpdate = true;
+    // particleGeom.attributes.alpha.needsUpdate = true;
 
     renderer.render(scene, camera);
 }

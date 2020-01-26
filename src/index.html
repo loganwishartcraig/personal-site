@@ -199,26 +199,25 @@
             }
 
             .main {
-                grid-template-rows: 100vh auto min-content;
+                grid-template-rows: 50vh 50vh auto min-content;
                 grid-template-columns: 100%;
                 grid-template-areas:
+                    "portrait"
                     "name"
                     "about"
                     "contact";
-                margin-bottom: 3rem;
+                margin-bottom: 30vh;
             }
 
             .portrait {
-                display: none;
-                /* height: 200px; */
+                height: 30vh;
+                border-radius: 10px;
+                align-self: flex-end;
+                justify-self: center;
             }
 
             .name {
-                align-self: center;
-            }
-
-            .about {
-                margin-bottom: 5px;
+                align-self: flex-start;
             }
 
         }
