@@ -13,18 +13,20 @@ enum COLOR {
 }
 
 let useDark = true;
+let ih = window.innerHeight,
+    iw = window.innerWidth
 
 const scene = new Scene();
 const camera = new PerspectiveCamera(
     75,
-    window.innerWidth / window.innerHeight,
+    iw / ih,
     0.1,
     1000
 );
 
 const renderer = new WebGLRenderer();
 
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(iw, ih);
 // renderer.setPixelRatio(window.devicePixelRatio);
 
 renderer.domElement.id = 'three-canvas';
@@ -50,8 +52,8 @@ particleGeom.setAttribute('alpha', new BufferAttribute(alphas, 1));
 
 for (let i = 0; i < NUM_VERTICES; i++) {
 
-    positions[i * 3 + 0] = 2 * Math.random() * window.innerWidth - window.innerWidth;
-    positions[i * 3 + 1] = 2 * Math.random() * window.innerHeight - window.innerHeight;
+    positions[i * 3 + 0] = 2 * Math.random() * iw - iw;
+    positions[i * 3 + 1] = 2 * Math.random() * ih - ih;
     positions[i * 3 + 2] = 0.0;
 
     velocity[i * 2 + 0] = (Math.random() > 0.5 ? -1 : 1) * Math.random();
@@ -77,6 +79,22 @@ scene.add(particles);
 
 // const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
 
+
+
+
+let resizeTimeout;
+
+function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        requestAnimationFrame(() => {
+            ih = window.innerHeight;
+            iw = window.innerWidth;
+            renderer.setSize(iw, ih);
+        });
+    }, 300);
+}
+
 function animate() {
     requestAnimationFrame(animate);
 
@@ -94,8 +112,6 @@ function animate() {
 
         // alphas[i] /= positionsInRange.length;
 
-        let ih = window.innerHeight,
-            iw = window.innerWidth
 
         if (positions[i * 3 + 0] > iw || positions[i * 3 + 0] < -1 * iw) {
             positions[i * 3 + 0] = (velocity[i * 2 + 0] > 0 ? -1 : 1) * iw;
@@ -116,7 +132,6 @@ function animate() {
 
 if (typeof window.matchMedia === 'function') {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    console.log('match media', mediaQuery);
     useDark = mediaQuery.matches;
     mediaQuery.addListener((ev) => {
         useDark = ev.matches;
@@ -127,8 +142,9 @@ if (typeof window.matchMedia === 'function') {
 function setColors(useDark: boolean) {
     renderer.setClearColor(useDark ? COLOR.BG_DARK : COLOR.BG_LIGHT, 1);
     uniforms.color.value = new Color(useDark ? COLOR.VERTEX_DARK : COLOR.VERTEX_LIGHT);
-    console.log('setting colors', useDark);
 }
+
+window.addEventListener('resize', handleResize);
 
 setColors(useDark);
 
