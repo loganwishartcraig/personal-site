@@ -98,6 +98,7 @@ function animate() {
 
     particleGeom.attributes.position.needsUpdate = true;
 
+
     renderer.render(scene, camera);
 }
 
