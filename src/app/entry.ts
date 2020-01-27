@@ -115,7 +115,7 @@ function animate() {
 }
 
 if (typeof window.matchMedia === 'function') {
-    const mediaQuery = window.matchMedia('prefers-color-scheme: dark');
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     console.log('match media', mediaQuery);
     useDark = mediaQuery.matches;
     mediaQuery.addListener((ev) => {
@@ -125,9 +125,9 @@ if (typeof window.matchMedia === 'function') {
 }
 
 function setColors(useDark: boolean) {
-    console.log('setting colors', useDark);
     renderer.setClearColor(useDark ? COLOR.BG_DARK : COLOR.BG_LIGHT, 1);
     uniforms.color.value = new Color(useDark ? COLOR.VERTEX_DARK : COLOR.VERTEX_LIGHT);
+    console.log('setting colors', useDark);
 }
 
 setColors(useDark);
