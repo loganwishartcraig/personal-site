@@ -1,5 +1,4 @@
 import { BufferAttribute, BufferGeometry, Color, PerspectiveCamera, Points, Scene, ShaderMaterial, WebGLRenderer, Colors } from 'three';
-import { TypedArrayUtils } from './TypedArrayUtils';
 
 
 const NUM_VERTICES = 250;
@@ -27,20 +26,11 @@ const camera = new PerspectiveCamera(
 const renderer = new WebGLRenderer();
 
 renderer.setSize(iw, ih);
-// renderer.setPixelRatio(window.devicePixelRatio);
 
 renderer.domElement.id = 'three-canvas';
 document.body.appendChild(renderer.domElement);
 
 camera.position.z = 500;
-
-const distanceFn = (a: BufferGeometry, b: BufferGeometry): number => {
-
-    // Compute squared distance in 2-d plane only
-    return Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2);
-
-};
-
 
 const positions = new Float32Array(NUM_VERTICES * 3);
 const alphas = new Float32Array(NUM_VERTICES);
@@ -77,11 +67,6 @@ const particleMat = new ShaderMaterial({
 const particles = new Points(particleGeom, particleMat);
 scene.add(particles);
 
-// const kdtree = new (TypedArrayUtils as any).Kdtree(positions, distanceFn, 3);
-
-
-
-
 let resizeTimeout;
 
 function handleResize() {
@@ -100,19 +85,6 @@ function animate() {
 
     for (let i = 0; i < NUM_VERTICES; i++) {
 
-        // const positionsInRange = kdtree.nearest(
-        //     [
-        //         positions[i * 3 + 0],
-        //         positions[i * 3 + 1],
-        //         positions[i * 3 + 2],
-        //     ],
-        //     100,
-        //     MAX_DISTANCE
-        // );
-
-        // alphas[i] /= positionsInRange.length;
-
-
         if (positions[i * 3 + 0] > iw || positions[i * 3 + 0] < -1 * iw) {
             positions[i * 3 + 0] = (velocity[i * 2 + 0] > 0 ? -1 : 1) * iw;
         } else if (positions[i * 3 + 1] > ih || positions[i * 3 + 1] < -1 * ih) {
@@ -125,7 +97,6 @@ function animate() {
     }
 
     particleGeom.attributes.position.needsUpdate = true;
-    // particleGeom.attributes.alpha.needsUpdate = true;
 
     renderer.render(scene, camera);
 }
