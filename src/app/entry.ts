@@ -9,7 +9,7 @@ enum COLOR {
     BG_LIGHT = 0xffffff,
     BG_DARK = 0x000000,
     VERTEX_LIGHT = 0x666666,
-    VERTEX_DARK = 0x666666,
+    VERTEX_DARK = 0x808080,
 }
 
 let useDark = true;
