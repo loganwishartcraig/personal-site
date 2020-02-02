@@ -1,13 +1,13 @@
-import { 
+import {
     BufferAttribute, BufferGeometry, Color, PerspectiveCamera, Points, Scene, ShaderMaterial, WebGLRenderer, Colors,
     LineBasicMaterial,
     LineSegments,
 } from 'three';
 
-import {TypedArrayUtils} from './TypedArrayUtils';
+import { TypedArrayUtils } from './TypedArrayUtils';
 
 const NUM_VERTICES = 250;
-const MAX_EDGE_VERTICES= 600 * 2;
+const MAX_EDGE_VERTICES = 600 * 2;
 const MAX_DISTANCE = Math.pow(120, 2);
 
 enum COLOR {
@@ -46,7 +46,7 @@ const positions = new Float32Array(NUM_VERTICES * 3);
 const edgePositions = new Float32Array(MAX_EDGE_VERTICES * 3);
 
 const alphas = new Float32Array(NUM_VERTICES);
-const velocity = new Float32Array(NUM_VERTICES * 2); 
+const velocity = new Float32Array(NUM_VERTICES * 2);
 
 const particleGeom = new BufferGeometry();
 particleGeom.setAttribute('position', new BufferAttribute(positions, 3));
@@ -61,7 +61,7 @@ for (let i = 0; i < NUM_VERTICES; i++) {
     positions[i * 3 + 1] = 2 * Math.random() * ih - ih;
     positions[i * 3 + 2] = 0.0;
 
-    const key = `${positions[i*3+0]},${positions[i*3+1]},${positions[i*3+2]}`;
+    const key = `${positions[i * 3 + 0]},${positions[i * 3 + 1]},${positions[i * 3 + 2]}`;
 
     velocity[i * 2 + 0] = (Math.random() > 0.5 ? -1 : 1) * Math.random();
     velocity[i * 2 + 1] = (Math.random() > 0.5 ? -1 : 1) * Math.random();
@@ -80,10 +80,10 @@ const particleMat = new ShaderMaterial({
     fragmentShader: require('./shaders/pointFragment.ts').src,
     transparent: true,
 });
-const edgeMat = new LineBasicMaterial( { color: useDark ? COLOR.EDGE_DARK : COLOR.EDGE_LIGHT } );
+const edgeMat = new LineBasicMaterial({ color: useDark ? COLOR.EDGE_DARK : COLOR.EDGE_LIGHT });
 
 const particles = new Points(particleGeom, particleMat);
-const edges = new LineSegments(edgeGeom, edgeMat); 
+const edges = new LineSegments(edgeGeom, edgeMat);
 let kdtree;
 let seenEdges;
 
@@ -121,21 +121,21 @@ function animate() {
     }
 
     // It's inefficient to just rebuild the K-d tree for each
-    // frame, but I don't know a good spatial index that would 
-    // support point animation in this way. We also slice the 
+    // frame, but I don't know a good spatial index that would
+    // support point animation in this way. We also slice the
     // positions buffer to create a copy so the sorting in the kd tree
     // doesn't mutate the input buffer. Again - inefficient...
-    // would at least be better if we could insert/remove from the kd-tree 
+    // would at least be better if we could insert/remove from the kd-tree
     // and maintain balance but the TypedArrayUtils implementation does not support this.
     kdtree = new TypedArrayUtils.Kdtree(positions.slice(), distanceFunction, 3);
     seenEdges = {};
 
-    let i = 0; 
+    let i = 0;
     let j = 0;
 
     while (i < NUM_VERTICES && j < MAX_EDGE_VERTICES) {
 
-        const key = `${positions[i*3+0]},${positions[i*3+1]},${positions[i*3+2]}`;
+        const key = `${positions[i * 3 + 0]},${positions[i * 3 + 1]},${positions[i * 3 + 2]}`;
         const nearest = kdtree.nearest(
             [
                 positions[i * 3 + 0],
@@ -160,11 +160,11 @@ function animate() {
             edgePositions[j * 3 + 1] = positions[i * 3 + 1];
             edgePositions[j * 3 + 2] = positions[i * 3 + 2];
 
-            edgePositions[(j+1) * 3 + 0] = nearest[c][0].obj[0]; 
-            edgePositions[(j+1) * 3 + 1] = nearest[c][0].obj[1]; 
-            edgePositions[(j+1) * 3 + 2] = nearest[c][0].obj[2]; 
+            edgePositions[(j + 1) * 3 + 0] = nearest[c][0].obj[0];
+            edgePositions[(j + 1) * 3 + 1] = nearest[c][0].obj[1];
+            edgePositions[(j + 1) * 3 + 2] = nearest[c][0].obj[2];
 
-            j+=2;
+            j += 2;
 
         }
         i++;
@@ -186,10 +186,13 @@ function animate() {
 if (typeof window.matchMedia === 'function') {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     useDark = mediaQuery.matches;
+    setColors(useDark);
     mediaQuery.addListener((ev) => {
         useDark = ev.matches;
         setColors(useDark);
     })
+} else {
+    setColors(useDark);
 }
 
 function setColors(useDark: boolean) {
@@ -200,6 +203,5 @@ function setColors(useDark: boolean) {
 
 window.addEventListener('resize', handleResize);
 
-setColors(useDark);
 
 animate();

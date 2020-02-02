@@ -126,6 +126,7 @@
             width: 250px;
             border: 2px solid var(--window-bg-color);
             border-radius: 3px;
+            object-fit: cover;
         }
 
         .about {
@@ -267,8 +268,11 @@
             <div class="name">
                 <h1 class="name__header window floating">Logan Wishart-Craig</h1>
             </div>
-            <img class="portrait floating" src="public/img/40613855_10214376685585825_6884769735821492224_o.jpg"
-                alt="A portrait photo of me, Logan!">
+            <img class="portrait floating" srcset="public/img/portrait@0.25x.jpg 188w,
+            public/img/portrait@0.5x.jpg 377w,
+            public/img/portrait@1.5x.jpg 1.5x,
+            public/img/portrait@2x.jpg 2x" sizes="(max-width: 650px) 188px,
+            377px" src="public/img/portrait.jpg" alt="A portrait photo of me, Logan!">
 
 
             <div class="about">
