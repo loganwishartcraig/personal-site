@@ -5,7 +5,6 @@ export const src = `
 	#endif
 
 	uniform vec3 color;
-	varying float vAlpha;
 
 	void main() {
 
