@@ -40,7 +40,7 @@ renderer.setSize(iw, ih);
 renderer.domElement.id = 'three-canvas';
 document.body.appendChild(renderer.domElement);
 
-camera.position.z = 500;
+camera.position.z = ih / (2 * Math.tan(camera.fov * Math.PI / 360));;
 
 const positions = new Float32Array(NUM_VERTICES * 3);
 const edgePositions = new Float32Array(MAX_EDGE_VERTICES * 3);
@@ -60,8 +60,6 @@ for (let i = 0; i < NUM_VERTICES; i++) {
     positions[i * 3 + 0] = 2 * Math.random() * iw - iw;
     positions[i * 3 + 1] = 2 * Math.random() * ih - ih;
     positions[i * 3 + 2] = 0.0;
-
-    const key = `${positions[i * 3 + 0]},${positions[i * 3 + 1]},${positions[i * 3 + 2]}`;
 
     velocity[i * 2 + 0] = (Math.random() > 0.5 ? -1 : 1) * Math.random();
     velocity[i * 2 + 1] = (Math.random() > 0.5 ? -1 : 1) * Math.random();
@@ -85,7 +83,6 @@ const edgeMat = new LineBasicMaterial({ color: useDark ? COLOR.EDGE_DARK : COLOR
 const particles = new Points(particleGeom, particleMat);
 const edges = new LineSegments(edgeGeom, edgeMat);
 let kdtree;
-let seenEdges;
 
 scene.add(particles);
 scene.add(edges);
@@ -98,11 +95,14 @@ function handleResize() {
             ih = window.innerHeight;
             iw = window.innerWidth;
             camera.aspect = iw / ih;
+            camera.position.z = ih / (2 * Math.tan(camera.fov * Math.PI / 360));;
             camera.updateProjectionMatrix();
             renderer.setSize(iw, ih);
         });
     }, 300);
 }
+
+const seenEdges: WeakMap<Float32Array, boolean> = new Map();
 
 function animate() {
     requestAnimationFrame(animate);
@@ -128,14 +128,12 @@ function animate() {
     // would at least be better if we could insert/remove from the kd-tree
     // and maintain balance but the TypedArrayUtils implementation does not support this.
     kdtree = new TypedArrayUtils.Kdtree(positions.slice(), distanceFunction, 3);
-    seenEdges = {};
 
     let i = 0;
     let j = 0;
 
     while (i < NUM_VERTICES && j < MAX_EDGE_VERTICES) {
 
-        const key = `${positions[i * 3 + 0]},${positions[i * 3 + 1]},${positions[i * 3 + 2]}`;
         const nearest = kdtree.nearest(
             [
                 positions[i * 3 + 0],
@@ -145,16 +143,16 @@ function animate() {
             100,
             MAX_DISTANCE
         );
+
+        const self = nearest.find(([_, dist]) => dist === 0)
+
+        seenEdges.set(self[0].obj, true);
+
         for (let c = 0, nl = nearest.length; c < nl && j < MAX_EDGE_VERTICES; c++) {
 
-            const key_b = `${nearest[c][0].obj[0]},${nearest[c][0].obj[1]},${nearest[c][0].obj[2]}`;
-
-            if ((seenEdges[key] && seenEdges[key][key_b]) || (seenEdges[key_b] && seenEdges[key_b][key])) {
+            if (seenEdges.has(nearest[c][0].obj)) {
                 continue;
             }
-
-            seenEdges[key] = seenEdges[key] || {};
-            seenEdges[key][key_b] = true;
 
             edgePositions[j * 3 + 0] = positions[i * 3 + 0];
             edgePositions[j * 3 + 1] = positions[i * 3 + 1];
@@ -171,9 +169,9 @@ function animate() {
     }
 
     while (j < MAX_EDGE_VERTICES) {
-        edgeGeom[j * 3 + 0] = null;
-        edgeGeom[j * 3 + 1] = null;
-        edgeGeom[j * 3 + 2] = null;
+        edgePositions[j * 3 + 0] = null;
+        edgePositions[j * 3 + 1] = null;
+        edgePositions[j * 3 + 2] = null;
         j++;
     }
 
