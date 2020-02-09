@@ -1,6 +1,6 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import { COLOR } from './config';
-import { onWindowStateChange, windowState, WindowState } from './state';
+import { windowState, WindowState, onWindowStateChange } from './state/window';
 
 const getCameraDepth = (camera: PerspectiveCamera, height: number) => height / (2 * Math.tan(camera.fov * Math.PI / 360));
 

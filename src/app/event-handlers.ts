@@ -1,4 +1,4 @@
-import { updateWindowState } from './state';
+import { updateWindowState } from './state/window';
 
 let resizeTimeout;
 

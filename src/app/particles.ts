@@ -1,7 +1,7 @@
 import { BufferAttribute, BufferGeometry, Color, Points, ShaderMaterial } from 'three';
 import { COLOR } from './config';
 import { scene } from './rendering';
-import { onParticleStateChange, onWindowStateChange, pointState, windowState, WindowState } from './state';
+import { windowState, onWindowStateChange, WindowState } from './state/window';
 
 export const particleUniforms = {
     color: { value: new Color(windowState.useDark ? COLOR.VERTEX_DARK : COLOR.VERTEX_LIGHT) }
@@ -15,7 +15,6 @@ export const particleMat = new ShaderMaterial({
 });
 
 export const particleGeom = new BufferGeometry();
-particleGeom.setAttribute('position', new BufferAttribute(pointState.particlePosition, 3));
 
 export const particles = new Points(particleGeom, particleMat);
 
@@ -29,6 +28,6 @@ const handleWindowStateChange = ({ useDark }: WindowState) => {
 
 onWindowStateChange(handleWindowStateChange);
 
-onParticleStateChange(() => {
-    (particleGeom.attributes.position as BufferAttribute).needsUpdate = true;
-});
+export const setParticlePositions = (particlePositions: Float32Array) => {
+    particleGeom.setAttribute('position', new BufferAttribute(particlePositions, 3));
+}

@@ -1,6 +1,6 @@
 
 export const NUM_VERTICES = 250;
-export const MAX_EDGE_VERTICES = 600 * 2;
+export const MAX_EDGES = 600;
 export const MAX_DISTANCE = Math.pow(120, 2);
 export const MAX_SPEED = 1.25;
 export const MIN_SPEED = 0.25;
