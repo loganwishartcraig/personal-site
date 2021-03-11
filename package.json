@@ -2,7 +2,7 @@
   "name": "personal-site",
   "version": "0.1.0",
   "description": "Code for my personal website",
-  "main": "index.js",
+  "main": "dist/index.html",
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel src/index.html",
