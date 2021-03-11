@@ -3,12 +3,12 @@
     "short_name": "Wisharts.dev",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png?v=9B9wm7JXGb",
+            "src": "./android-chrome-192x192.png?v=9B9wm7JXGb",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/android-chrome-256x256.png?v=9B9wm7JXGb",
+            "src": "./android-chrome-256x256.png?v=9B9wm7JXGb",
             "sizes": "256x256",
             "type": "image/png"
         }
