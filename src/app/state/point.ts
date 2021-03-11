@@ -1,6 +1,6 @@
 import { TypedArrayUtils } from '../TypedArrayUtils';
 
-export interface PointState {
+export type PointState = {
     particlePositions: Float32Array;
     edgePositions: Float32Array;
     velocities: Float32Array;
@@ -59,13 +59,14 @@ export const initEdgePositions = (count: number): Float32Array => {
 
 }
 
-export interface ParticleStateConfig {
+export type ParticleStateConfig = {
     vertexCount: number;
     edgeCount: number;
     max_x: number;
     max_y: number;
     max_speed: number;
     min_speed: number;
+	max_distance: number;
 };
 
 export const initState = ({
@@ -74,12 +75,14 @@ export const initState = ({
     max_speed,
     min_speed,
     max_x,
-    max_y
+    max_y,
+	max_distance,
 }: ParticleStateConfig): PointState => {
 
     initPointPositions(vertexCount, max_x, max_y);
     initPointVelocities(vertexCount, max_speed, min_speed);
     initEdgePositions(edgeCount);
+	drawEdges(max_distance);
 
     return pointState;
 
@@ -104,7 +107,7 @@ export const movePoints = (maxHeight: number, maxWidth: number): Float32Array =>
 }
 
 const distanceFunction = (a, b) => Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2);
-const seenEdges: WeakMap<Float32Array, boolean> = new Map();
+const seenEdges: WeakMap<Float32Array, boolean> = new WeakMap();
 
 export const drawEdges = (maxDistance: number): Float32Array => {
     // It's inefficient to just rebuild the K-d tree for each
