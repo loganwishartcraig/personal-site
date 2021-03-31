@@ -5,14 +5,15 @@ import { windowState, WindowState, onWindowStateChange } from './state/window';
 const getCameraDepth = (camera: PerspectiveCamera, height: number) => height / (2 * Math.tan(camera.fov * Math.PI / 360));
 
 export const scene = new Scene();
-export const camera = new PerspectiveCamera(75, windowState.iw / windowState.ih, 0.1, 1000);
+export const camera = new PerspectiveCamera(75, windowState.iw / windowState.ih, 0.1, 10000);
 export const renderer = new WebGLRenderer();
 
 export const initRenderer = (state: WindowState) => {
 
     camera.position.z = getCameraDepth(camera, state.ih + 250);
+	camera.updateProjectionMatrix();
 
-    renderer.setSize(state.iw, state.ih);
+    renderer.setSize(state.iw, state.ih, false);
     renderer.domElement.id = 'three-canvas';
 
     document.body.appendChild(renderer.domElement);
@@ -25,9 +26,9 @@ export const renderScene = () => {
 
 const handleWindowStateChange = (state: WindowState) => {
     camera.aspect = state.iw / state.ih;
-    camera.position.z = getCameraDepth(camera, state.ih);
+	camera.position.z = getCameraDepth(camera, state.ih + 250);
     camera.updateProjectionMatrix();
-    renderer.setSize(state.iw, state.ih);
+    renderer.setSize(state.iw, state.ih, false);
     renderer.setClearColor(state.useDark ? COLOR.BG_DARK : COLOR.BG_LIGHT, 1);
 };
 

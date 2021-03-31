@@ -137,7 +137,7 @@ export const drawEdges = (maxDistance: number): Float32Array => {
             maxDistance
         );
 
-        const self = nearest.find(([_, dist]) => dist === 0)
+        const self = nearest.find(([_, dist]) => dist === 0);
 
         seenEdges.set(self[0].obj, true);
 
