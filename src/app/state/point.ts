@@ -108,7 +108,7 @@ export const movePoints = (maxHeight: number, maxWidth: number): Float32Array =>
 
 const distanceFunction = (a, b) => Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2);
 const seenEdges: WeakMap<Float32Array, boolean> = new WeakMap();
-
+let debug = 0;
 export const drawEdges = (maxDistance: number): Float32Array => {
     // It's inefficient to just rebuild the K-d tree for each
     // frame, but I don't know a good spatial index that would
@@ -135,9 +135,16 @@ export const drawEdges = (maxDistance: number): Float32Array => {
             ] as any,
             100,
             maxDistance
-        );
+		);
+        //).sort((a, b) => a[1] - b[1]);
 
-        const self = nearest.find(([_, dist]) => dist === 0);
+		const self = nearest.find(([_, dist]) => dist === 0);
+		//const self = nearest[0];
+		//const toDraw = nearest.slice(1, 6);
+		
+		//if (debug++ < 10) {
+			//console.log('self', nearest, toDraw)
+		//}
 
         seenEdges.set(self[0].obj, true);
 

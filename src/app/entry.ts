@@ -3,7 +3,7 @@ import {
   MAX_SPEED,
   MIN_SPEED,
   NUM_VERTICES as MAX_VERTICES,
-  MAX_DISTANCE,
+  DISTANCE_COEFFICIENT,
 } from "./config";
 import { initEdges, setEdgePositions } from "./edges";
 import { initEventHandlers } from "./event-handlers";
@@ -36,7 +36,7 @@ function main() {
       max_x: windowState.iw,
       max_y: windowState.ih,
       min_speed: MIN_SPEED,
-      max_distance: MAX_DISTANCE,
+      max_distance: resolveMaxDistance(),
     },
   } as WorkerRequest);
 
@@ -79,13 +79,17 @@ function requestParticleMove() {
   const message: WorkerRequest = {
     type: "move-particles",
     payload: {
-      max_distance: MAX_DISTANCE,
+	  max_distance: resolveMaxDistance(),
       max_x: windowState.iw,
       max_y: windowState.ih,
     },
   };
 
   worker.postMessage(message);
+}
+
+function resolveMaxDistance() {
+	return DISTANCE_COEFFICIENT * windowState.iw;
 }
 
 function printWelcome() {
