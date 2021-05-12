@@ -25,7 +25,7 @@
     "@types/three": "^0.126.2",
     "autoprefixer": "^10.2.5",
     "parcel": "^2.0.0-nightly.623",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.10",
     "postcss-modules": "^4.0.0",
     "postcss-preset-env": "^6.7.0",
     "posthtml-bem": "^0.2.2",
