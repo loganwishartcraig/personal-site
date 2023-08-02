@@ -12,5 +12,5 @@ module.exports = {
 		"posthtml-link-noreferrer": {
 			"attr": ['noopener', 'noreferrer']
 		}
-	}
+	},
 };
