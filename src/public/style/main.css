@@ -77,10 +77,15 @@
     color: var(--window-text-color);
     border: 1px solid var(--window-border-color);
     border-radius: 3px;
+    transition: border-color .1s ease-in-out,color .1s ease-in-out;
 }
 
 #theme-toggle__button:hover {
     border-color: var(--link-hover-color);
+}
+
+#theme-toggle__button > svg {
+    transition: color .1s ease-in-out;
 }
 
 #theme-toggle__button:hover > svg {
