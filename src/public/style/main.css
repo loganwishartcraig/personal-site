@@ -63,3 +63,27 @@
     border: 1px solid var(--window-border-color);
     border-radius: 3px;
 }
+
+#theme-toggle__button {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    transform: translateY(calc(-100% - 6px));
+
+    background-color: var(--window-bg-color);
+    color: var(--window-text-color);
+    border: 1px solid var(--window-border-color);
+    border-radius: 3px;
+}
+
+#theme-toggle__button:hover {
+    border-color: var(--link-hover-color);
+}
+
+#theme-toggle__button:hover > svg {
+    color: var(--link-hover-color);
+}
+
