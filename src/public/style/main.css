@@ -72,6 +72,7 @@
     z-index: 1;
     right: 0;
     transform: translateY(calc(-100% - 6px));
+    cursor: pointer;
 
     background-color: var(--window-bg-color);
     color: var(--window-text-color);
